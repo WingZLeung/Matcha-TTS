@@ -30,7 +30,7 @@ defaults:
 # task name, determines output directory path
 task_name: "train"
 
-run_name: ???
+run_name: 'torgo'
 
 # tags to help you identify your experiments
 # you can overwrite this in experiment configs
