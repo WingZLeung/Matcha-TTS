@@ -77,8 +77,9 @@ class BaseLightningClass(LightningModule, ABC):
         self.ckpt_loaded_epoch = checkpoint["epoch"]  # pylint: disable=attribute-defined-outside-init
 
     def training_step(self, batch: Any, batch_idx: int):
-        batch_size = batch[0].size(0) if isinstance(batch, (tuple, list)) else batch.size(0)
-
+        #batch_size = batch[0].size(0) if isinstance(batch, (tuple, list)) else batch.size(0)
+        # print(batch['x'].size)
+        # batch_size = batch["input"].size(0)
         loss_dict = self.get_losses(batch)
         self.log(
             "step",
@@ -123,7 +124,8 @@ class BaseLightningClass(LightningModule, ABC):
             logger=True,
             prog_bar=True,
             sync_dist=True,
-            batch_size=batch_size,
+            # batch_size=batch_size,
+            # batch_size=32,
         )
 
         return {"loss": total_loss, "log": loss_dict}

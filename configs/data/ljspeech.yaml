@@ -20,3 +20,4 @@ data_statistics:  # Computed for ljspeech dataset
   mel_std: 1.8346129655838013
 seed: ${seed}
 load_durations: false
+

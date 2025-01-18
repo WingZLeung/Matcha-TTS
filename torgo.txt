@@ -1,5 +1,5 @@
-[2025-01-17 16:52:23,266][matcha.utils.utils][INFO] - Enforcing tags! <cfg.extras.enforce_tags=True>
-[2025-01-17 16:52:23,293][matcha.utils.utils][INFO] - Printing config tree with Rich! <cfg.extras.print_config=True>
+[2025-01-17 17:36:53,670][matcha.utils.utils][INFO] - Enforcing tags! <cfg.extras.enforce_tags=True>
+[2025-01-17 17:36:53,756][matcha.utils.utils][INFO] - Printing config tree with Rich! <cfg.extras.print_config=True>
 CONFIG
 ├── data
 │   └── _target_: matcha.data.text_mel_datamodule.TextMelDataModule             
@@ -110,7 +110,7 @@ CONFIG
 ├── trainer
 │   └── _target_: lightning.pytorch.trainer.Trainer                             
 │       default_root_dir: /mnt/parscratch/users/acr22wl/Matcha-TTS/logs/train/lj
-│       max_epochs: -1                                                          
+│       max_epochs: 100                                                         
 │       accelerator: gpu                                                        
 │       devices:                                                                
 │       - 0                                                                     
@@ -146,24 +146,24 @@ CONFIG
 └── seed
     └── 1234                                                                    
 [rank: 0] Seed set to 1234
-[2025-01-17 16:52:23,627][__main__][INFO] - Instantiating datamodule <matcha.data.text_mel_datamodule.TextMelDataModule>
-[2025-01-17 16:52:39,946][__main__][INFO] - Instantiating model <matcha.models.matcha_tts.MatchaTTS>
+[2025-01-17 17:36:54,341][__main__][INFO] - Instantiating datamodule <matcha.data.text_mel_datamodule.TextMelDataModule>
+[2025-01-17 17:37:14,138][__main__][INFO] - Instantiating model <matcha.models.matcha_tts.MatchaTTS>
 /mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/diffusers/models/lora.py:393: FutureWarning: `LoRACompatibleLinear` is deprecated and will be removed in version 1.0.0. Use of `LoRACompatibleLinear` is deprecated. Please switch to PEFT backend by installing PEFT: `pip install peft`.
   deprecate("LoRACompatibleLinear", "1.0.0", deprecation_message)
-[2025-01-17 16:52:54,362][__main__][INFO] - Instantiating callbacks...
-[2025-01-17 16:52:54,363][matcha.utils.instantiators][INFO] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>
-[2025-01-17 16:52:54,476][matcha.utils.instantiators][INFO] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>
-[2025-01-17 16:52:54,476][matcha.utils.instantiators][INFO] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>
-[2025-01-17 16:52:54,476][__main__][INFO] - Instantiating loggers...
-[2025-01-17 16:52:54,476][matcha.utils.instantiators][INFO] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>
-[2025-01-17 16:52:54,479][__main__][INFO] - Instantiating trainer <lightning.pytorch.trainer.Trainer>
+[2025-01-17 17:37:23,460][__main__][INFO] - Instantiating callbacks...
+[2025-01-17 17:37:23,460][matcha.utils.instantiators][INFO] - Instantiating callback <lightning.pytorch.callbacks.ModelCheckpoint>
+[2025-01-17 17:37:23,561][matcha.utils.instantiators][INFO] - Instantiating callback <lightning.pytorch.callbacks.RichModelSummary>
+[2025-01-17 17:37:23,562][matcha.utils.instantiators][INFO] - Instantiating callback <lightning.pytorch.callbacks.RichProgressBar>
+[2025-01-17 17:37:23,562][__main__][INFO] - Instantiating loggers...
+[2025-01-17 17:37:23,562][matcha.utils.instantiators][INFO] - Instantiating logger <lightning.pytorch.loggers.tensorboard.TensorBoardLogger>
+[2025-01-17 17:37:23,565][__main__][INFO] - Instantiating trainer <lightning.pytorch.trainer.Trainer>
 Using 16bit Automatic Mixed Precision (AMP)
 Trainer already configured with model summary callbacks: [<class 'lightning.pytorch.callbacks.rich_model_summary.RichModelSummary'>]. Skipping setting a default `ModelSummary` callback.
 GPU available: True (cuda), used: True
 TPU available: False, using: 0 TPU cores
 HPU available: False, using: 0 HPUs
-[2025-01-17 16:52:54,563][__main__][INFO] - Logging hyperparameters!
-[2025-01-17 16:53:00,458][__main__][INFO] - Starting training!
+[2025-01-17 17:37:23,654][__main__][INFO] - Logging hyperparameters!
+[2025-01-17 17:37:27,724][__main__][INFO] - Starting training!
 You are using a CUDA device ('NVIDIA A100-SXM4-80GB') that has Tensor Cores. To properly utilize them, you should set `torch.set_float32_matmul_precision('medium' | 'high')` which will trade-off precision for performance. For more details, read https://pytorch.org/docs/stable/generated/torch.set_float32_matmul_precision.html#torch.set_float32_matmul_precision
 LOCAL_RANK: 0 - CUDA_VISIBLE_DEVICES: [0]
 ┏━━━━┳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┳━━━━━━━━━━━━━━━━━━━┳━━━━━━━━┳━━━━━━━┓
@@ -209,65 +209,40 @@ Modules in train mode: 334
 Modules in eval mode: 0                                                         
 SLURM auto-requeueing enabled. Setting signal handlers.
 /mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 32. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
-Epoch 0/-2                    0/58 0:00:01 • -:--:-- 0.00it/s v_num: 0.000      
-                                                              loss/val_step:    
-                                                              11.389            
-                                                              loss/val_epoch:   
-                                                              11.719            
-[2025-01-17 16:53:17,346][matcha.utils.utils][ERROR] - 
+/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/utilities/data.py:79: Trying to infer the `batch_size` from an ambiguous collection. The batch size we found is 24. To avoid any miscalculations, use `self.log(..., batch_size=batch_size)`.
+`Trainer.fit` stopped: `max_epochs=100` reached.
+Epoch 99/99 ━━━━━━━━━━━━━━━━━ 58/58 0:00:16 • 0:00:00 3.72it/s v_num: 0.000     
+                                                               step: 5799.000   
+                                                               loss/train_step: 
+                                                               3.902            
+                                                               loss/val_step:   
+                                                               4.709            
+                                                               loss/val_epoch:  
+                                                               5.335            
+                                                               loss/train_epoch:
+                                                               5.145            
+[2025-01-17 18:05:29,207][__main__][INFO] - Starting testing!
+
+[2025-01-17 18:05:29,234][matcha.utils.utils][ERROR] - 
 Traceback (most recent call last):
   File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/utils/utils.py", line 77, in wrap
     metric_dict, object_dict = task_func(cfg=cfg)
-  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 84, in train
-    trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.get("ckpt_path"))
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 539, in fit
-    call._call_and_handle_interrupt(
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 94, in train
+    trainer.test(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 749, in test
+    return call._call_and_handle_interrupt(
   File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
     return trainer_fn(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 575, in _fit_impl
-    self._run(model, ckpt_path=ckpt_path)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 982, in _run
-    results = self._run_stage()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1026, in _run_stage
-    self.fit_loop.run()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
-    self.advance()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
-    self.epoch_loop.run(self._data_fetcher)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
-    self.advance(data_fetcher)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
-    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
-    self._optimizer_step(batch_idx, closure)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
-    call._call_lightning_module_hook(
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 171, in _call_lightning_module_hook
-    output = fn(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
-    optimizer.step(closure=optimizer_closure)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
-    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
-    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/amp.py", line 79, in optimizer_step
-    closure_result = closure()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
-    self._result = self.closure(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
-    step_output = self._step_fn()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
-    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 323, in _call_strategy_hook
-    output = fn(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 391, in training_step
-    return self.lightning_module.training_step(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/models/baselightningmodule.py", line 80, in training_step
-    batch_size = batch[0].size(0) if isinstance(batch, (tuple, list)) else batch.size(0)
-AttributeError: 'dict' object has no attribute 'size'
-[2025-01-17 16:53:17,546][matcha.utils.utils][INFO] - Output dir: /mnt/parscratch/users/acr22wl/Matcha-TTS/logs/train/ljspeech/runs/2025-01-17_16-52-23
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 789, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 932, in _run
+    _verify_loop_configurations(self)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 41, in _verify_loop_configurations
+    __verify_eval_loop_configuration(model, "test")
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 106, in __verify_eval_loop_configuration
+    raise MisconfigurationException(f"No `{step_name}()` method defined to run `Trainer.{trainer_method}`.")
+lightning.fabric.utilities.exceptions.MisconfigurationException: No `test_step()` method defined to run `Trainer.test`.
+[2025-01-17 18:05:29,282][matcha.utils.utils][INFO] - Output dir: /mnt/parscratch/users/acr22wl/Matcha-TTS/logs/train/ljspeech/runs/2025-01-17_17-25-50
 Error executing job with overrides: ['experiment=ljspeech']
 Traceback (most recent call last):
   File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 117, in main
@@ -276,54 +251,78 @@ Traceback (most recent call last):
     raise ex
   File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/utils/utils.py", line 77, in wrap
     metric_dict, object_dict = task_func(cfg=cfg)
-  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 84, in train
-    trainer.fit(model=model, datamodule=datamodule, ckpt_path=cfg.get("ckpt_path"))
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 539, in fit
-    call._call_and_handle_interrupt(
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 94, in train
+    trainer.test(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 749, in test
+    return call._call_and_handle_interrupt(
   File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
     return trainer_fn(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 575, in _fit_impl
-    self._run(model, ckpt_path=ckpt_path)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 982, in _run
-    results = self._run_stage()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 1026, in _run_stage
-    self.fit_loop.run()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 216, in run
-    self.advance()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/fit_loop.py", line 455, in advance
-    self.epoch_loop.run(self._data_fetcher)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 150, in run
-    self.advance(data_fetcher)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/training_epoch_loop.py", line 320, in advance
-    batch_output = self.automatic_optimization.run(trainer.optimizers[0], batch_idx, kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 192, in run
-    self._optimizer_step(batch_idx, closure)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 270, in _optimizer_step
-    call._call_lightning_module_hook(
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 171, in _call_lightning_module_hook
-    output = fn(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/core/module.py", line 1302, in optimizer_step
-    optimizer.step(closure=optimizer_closure)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/core/optimizer.py", line 154, in step
-    step_output = self._strategy.optimizer_step(self._optimizer, closure, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 239, in optimizer_step
-    return self.precision_plugin.optimizer_step(optimizer, model=model, closure=closure, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/plugins/precision/amp.py", line 79, in optimizer_step
-    closure_result = closure()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 146, in __call__
-    self._result = self.closure(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/torch/utils/_contextlib.py", line 116, in decorate_context
-    return func(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 131, in closure
-    step_output = self._step_fn()
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/loops/optimization/automatic.py", line 319, in _training_step
-    training_step_output = call._call_strategy_hook(trainer, "training_step", *kwargs.values())
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 323, in _call_strategy_hook
-    output = fn(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/strategies/strategy.py", line 391, in training_step
-    return self.lightning_module.training_step(*args, **kwargs)
-  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/models/baselightningmodule.py", line 80, in training_step
-    batch_size = batch[0].size(0) if isinstance(batch, (tuple, list)) else batch.size(0)
-AttributeError: 'dict' object has no attribute 'size'
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 789, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 932, in _run
+    _verify_loop_configurations(self)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 41, in _verify_loop_configurations
+    __verify_eval_loop_configuration(model, "test")
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 106, in __verify_eval_loop_configuration
+    raise MisconfigurationException(f"No `{step_name}()` method defined to run `Trainer.{trainer_method}`.")
+lightning.fabric.utilities.exceptions.MisconfigurationException: No `test_step()` method defined to run `Trainer.test`.
+
+Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
+`Trainer.fit` stopped: `max_epochs=100` reached.
+Epoch 99/99 ━━━━━━━━━━━━━━━━━ 58/58 0:00:14 • 0:00:00 4.04it/s v_num: 0.000     
+                                                               step: 5799.000   
+                                                               loss/train_step: 
+                                                               3.915            
+                                                               loss/val_step:   
+                                                               4.705            
+                                                               loss/val_epoch:  
+                                                               5.355            
+                                                               loss/train_epoch:
+                                                               5.153            
+[2025-01-17 18:15:23,193][__main__][INFO] - Starting testing!
+
+[2025-01-17 18:15:23,202][matcha.utils.utils][ERROR] - 
+Traceback (most recent call last):
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/utils/utils.py", line 77, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 94, in train
+    trainer.test(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 749, in test
+    return call._call_and_handle_interrupt(
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 789, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 932, in _run
+    _verify_loop_configurations(self)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 41, in _verify_loop_configurations
+    __verify_eval_loop_configuration(model, "test")
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 106, in __verify_eval_loop_configuration
+    raise MisconfigurationException(f"No `{step_name}()` method defined to run `Trainer.{trainer_method}`.")
+lightning.fabric.utilities.exceptions.MisconfigurationException: No `test_step()` method defined to run `Trainer.test`.
+[2025-01-17 18:15:23,214][matcha.utils.utils][INFO] - Output dir: /mnt/parscratch/users/acr22wl/Matcha-TTS/logs/train/ljspeech/runs/2025-01-17_17-36-53
+Error executing job with overrides: ['experiment=ljspeech']
+Traceback (most recent call last):
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 117, in main
+    metric_dict, _ = train(cfg)
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/utils/utils.py", line 87, in wrap
+    raise ex
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/utils/utils.py", line 77, in wrap
+    metric_dict, object_dict = task_func(cfg=cfg)
+  File "/mnt/parscratch/users/acr22wl/Matcha-TTS/matcha/train.py", line 94, in train
+    trainer.test(model=model, datamodule=datamodule, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 749, in test
+    return call._call_and_handle_interrupt(
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/call.py", line 47, in _call_and_handle_interrupt
+    return trainer_fn(*args, **kwargs)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 789, in _test_impl
+    results = self._run(model, ckpt_path=ckpt_path)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/trainer.py", line 932, in _run
+    _verify_loop_configurations(self)
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 41, in _verify_loop_configurations
+    __verify_eval_loop_configuration(model, "test")
+  File "/mnt/parscratch/users/acr22wl/.conda/envs/match/lib/python3.10/site-packages/lightning/pytorch/trainer/configuration_validator.py", line 106, in __verify_eval_loop_configuration
+    raise MisconfigurationException(f"No `{step_name}()` method defined to run `Trainer.{trainer_method}`.")
+lightning.fabric.utilities.exceptions.MisconfigurationException: No `test_step()` method defined to run `Trainer.test`.
 
 Set the environment variable HYDRA_FULL_ERROR=1 for a complete stack trace.
