@@ -1,0 +1,23 @@
+_target_: matcha.data.text_mel_datamodule.TextMelDataModule
+name: torgo
+train_filelist_path: /mnt/parscratch/users/acr22wl/TTDS_out/filelists/speechdiff/TORGO/B1.txt
+valid_filelist_path: /mnt/parscratch/users/acr22wl/TTDS_out/filelists/speechdiff/TORGO/B3.txt
+batch_size: 32
+num_workers: 2
+pin_memory: True
+cleaners: [english_cleaners2]
+add_blank: True
+n_spks: 15
+n_fft: 1024
+n_feats: 80
+sample_rate: 16000
+hop_length: 160
+win_length: 1024
+f_min: 0
+f_max: 8000
+data_statistics:  # Computed for torgo dataset
+  mel_mean: -5.266092777252197
+  mel_std: 1.8341699838638306
+seed: ${seed}
+load_durations: false
+

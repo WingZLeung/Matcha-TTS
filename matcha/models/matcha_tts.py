@@ -1,7 +1,7 @@
 import datetime as dt
 import math
 import random
-
+import numpy as np
 import torch
 
 import matcha.utils.monotonic_align as monotonic_align  # pylint: disable=consider-using-from-import
@@ -108,12 +108,17 @@ class MatchaTTS(BaseLightningClass):  # 🍵
                 # Real-time factor
             }
         """
+        print('USING THIS MODEL')
         # For RTF computation
         t = dt.datetime.now()
 
         if self.n_spks > 1:
             # Get speaker embedding
             spks = self.spk_emb(spks.long())
+            # spk_emb_weights = self.spk_emb.weight.data.cpu().numpy()  # Convert to NumPy array
+            # np.save("/mnt/parscratch/users/acr22wl/Matcha-TTS_output/oov/spk_emb.npy", spk_emb_weights)
+            # torch.save(self.spk_emb.state_dict(), "/mnt/parscratch/users/acr22wl/Matcha-TTS_output/oov/spk_emb.pth")
+
 
         # Get encoder_outputs `mu_x` and log-scaled token durations `logw`
         mu_x, logw, x_mask = self.encoder(x, x_lengths, spks)

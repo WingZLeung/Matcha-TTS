@@ -77,13 +77,14 @@ class BaseLightningClass(LightningModule, ABC):
         self.ckpt_loaded_epoch = checkpoint["epoch"]  # pylint: disable=attribute-defined-outside-init
 
     def training_step(self, batch: Any, batch_idx: int):
-        #batch_size = batch[0].size(0) if isinstance(batch, (tuple, list)) else batch.size(0)
+        batch_size = batch[0].size(0) if isinstance(batch, (tuple, list)) else batch.size(0)
         # print(batch['x'].size)
         # batch_size = batch["input"].size(0)
         loss_dict = self.get_losses(batch)
         self.log(
             "step",
             float(self.global_step),
+            batch_size=batch_size
             on_step=True,
             prog_bar=True,
             logger=True,
@@ -93,6 +94,7 @@ class BaseLightningClass(LightningModule, ABC):
         self.log(
             "sub_loss/train_dur_loss",
             loss_dict["dur_loss"],
+            batch_size=batch_size,
             on_step=True,
             on_epoch=True,
             logger=True,
@@ -101,6 +103,7 @@ class BaseLightningClass(LightningModule, ABC):
         self.log(
             "sub_loss/train_prior_loss",
             loss_dict["prior_loss"],
+            batch_size=batch_size,
             on_step=True,
             on_epoch=True,
             logger=True,
@@ -109,6 +112,7 @@ class BaseLightningClass(LightningModule, ABC):
         self.log(
             "sub_loss/train_diff_loss",
             loss_dict["diff_loss"],
+            batch_size=batch_size,
             on_step=True,
             on_epoch=True,
             logger=True,
@@ -124,8 +128,6 @@ class BaseLightningClass(LightningModule, ABC):
             logger=True,
             prog_bar=True,
             sync_dist=True,
-            # batch_size=batch_size,
-            # batch_size=32,
         )
 
         return {"loss": total_loss, "log": loss_dict}
@@ -177,12 +179,12 @@ class BaseLightningClass(LightningModule, ABC):
                 log.debug("Plotting original samples")
                 for i in range(2):
                     y = one_batch["y"][i].unsqueeze(0).to(self.device)
-                    self.logger.experiment.add_image(
-                        f"original/{i}",
-                        plot_tensor(y.squeeze().cpu()),
-                        self.current_epoch,
-                        dataformats="HWC",
-                    )
+                    # self.logger.experiment.add_image(
+                    #     f"original/{i}",
+                    #     plot_tensor(y.squeeze().cpu()),
+                    #     self.current_epoch,
+                    #     dataformats="HWC",
+                    # )
 
             log.debug("Synthesising...")
             for i in range(2):
@@ -192,24 +194,24 @@ class BaseLightningClass(LightningModule, ABC):
                 output = self.synthesise(x[:, :x_lengths], x_lengths, n_timesteps=10, spks=spks)
                 y_enc, y_dec = output["encoder_outputs"], output["decoder_outputs"]
                 attn = output["attn"]
-                self.logger.experiment.add_image(
-                    f"generated_enc/{i}",
-                    plot_tensor(y_enc.squeeze().cpu()),
-                    self.current_epoch,
-                    dataformats="HWC",
-                )
-                self.logger.experiment.add_image(
-                    f"generated_dec/{i}",
-                    plot_tensor(y_dec.squeeze().cpu()),
-                    self.current_epoch,
-                    dataformats="HWC",
-                )
-                self.logger.experiment.add_image(
-                    f"alignment/{i}",
-                    plot_tensor(attn.squeeze().cpu()),
-                    self.current_epoch,
-                    dataformats="HWC",
-                )
+                # self.logger.experiment.add_image(
+                #     f"generated_enc/{i}",
+                #     plot_tensor(y_enc.squeeze().cpu()),
+                #     self.current_epoch,
+                #     dataformats="HWC",
+                # )
+                # self.logger.experiment.add_image(
+                #     f"generated_dec/{i}",
+                #     plot_tensor(y_dec.squeeze().cpu()),
+                #     self.current_epoch,
+                #     dataformats="HWC",
+                # )
+                # self.logger.experiment.add_image(
+                #     f"alignment/{i}",
+                #     plot_tensor(attn.squeeze().cpu()),
+                #     self.current_epoch,
+                #     dataformats="HWC",
+                # )
 
     def on_before_optimizer_step(self, optimizer):
         self.log_dict({f"grad_norm/{k}": v for k, v in grad_norm(self, norm_type=2).items()})

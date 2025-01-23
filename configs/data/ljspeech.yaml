@@ -1,23 +1,22 @@
 _target_: matcha.data.text_mel_datamodule.TextMelDataModule
-name: torgo
-train_filelist_path: /mnt/parscratch/users/acr22wl/TTDS_out/filelists/speechdiff/TORGO/B1.txt
-valid_filelist_path: /mnt/parscratch/users/acr22wl/TTDS_out/filelists/speechdiff/TORGO/B3.txt
-batch_size: 32
+name: SAP
+train_filelist_path: /mnt/parscratch/users/acr22wl/SAP_challenge_output/speechdiff/filelists/train.txt
+valid_filelist_path: /mnt/parscratch/users/acr22wl/SAP_challenge_output/speechdiff/filelists/val.txt
+batch_size: 2
 num_workers: 2
 pin_memory: True
-cleaners: [english_cleaners2]
+cleaners: [english_cleaners3]
 add_blank: True
-n_spks: 8
+n_spks: 369
 n_fft: 1024
 n_feats: 80
 sample_rate: 16000
-hop_length: 256
+hop_length: 160
 win_length: 1024
 f_min: 0
 f_max: 8000
-data_statistics:  # Computed for ljspeech dataset
-  mel_mean: -5.264439582824707
-  mel_std: 1.8346129655838013
+data_statistics:  # Computed for SAP dataset
+  mel_mean: -6.796193599700928
+  mel_std: 2.4701178073883057
 seed: ${seed}
 load_durations: false
-

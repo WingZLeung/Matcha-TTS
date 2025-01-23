@@ -16,6 +16,7 @@ import re
 
 import phonemizer
 from unidecode import unidecode
+import unicodedata
 
 # To avoid excessive logging we set the log level of the phonemizer package to Critical
 critical_logger = logging.getLogger("phonemizer")
@@ -113,6 +114,35 @@ def english_cleaners2(text):
     phonemes = collapse_whitespace(phonemes)
     return phonemes
 
+def english_cleaners3(text):
+    def remove_invalid_characters(text):
+        """Remove or replace unsupported characters like combining diacritical marks."""
+        # Normalize the text to NFC form and replace diacritical marks with their base characters
+        normalized_text = unicodedata.normalize('NFD', text)  # Decompose characters into base + diacritic
+        return ''.join([c for c in normalized_text if unicodedata.category(c) != 'Mn'])  # Remove diacritics
+
+    """Pipeline for English text, including abbreviation expansion. + punctuation + stress"""
+    # Remove unsupported characters like combining tildes (̃)
+    text = remove_invalid_characters(text)
+    # Convert to ASCII and lowercase
+    text = convert_to_ascii(text)
+    text = lowercase(text)
+
+    # Expand abbreviations
+    text = expand_abbreviations(text)
+
+    # Phonemize the text
+    try:
+        phonemes = global_phonemizer.phonemize([text], strip=True, njobs=1)[0]
+    except KeyError as e:
+        warnings.warn(f"KeyError encountered while phonemizing text: {e}")
+        phonemes = ""  # Fallback or handle error as needed
+
+    # Clean up phonemes
+    phonemes = remove_brackets(phonemes)
+    phonemes = collapse_whitespace(phonemes)
+    
+    return phonemes
 
 def ipa_simplifier(text):
     replacements = [
